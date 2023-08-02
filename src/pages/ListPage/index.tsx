@@ -2,7 +2,7 @@ import React from 'react'
 
 import './index.css'
 import BasicTemplates from '../../templates/BasicTemplates'
-import ArticleList from '../../components/ArticleList'
+import ArticleList from '../../components/ArticleList/ArticleList'
 
 function ListPage(props) {
   return (
