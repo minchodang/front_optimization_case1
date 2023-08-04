@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
 
+import { getParametersForUnsplash } from '../../components/Article/Article';
 import CodeBlock from '../../components/markdowns/CodeBlock';
 import BasicTemplates from '../../templates/BasicTemplates';
 import './index.css';
@@ -30,11 +31,25 @@ function ViewPage(props: any) {
 
     console.log(article, 'sdf');
 
-    return article ? (
+    return (
         <BasicTemplates>
             <div className={'ViewPage'}>
-                <h1 className={'ViewPage__title'}>{article.title}</h1>
-                <img className={'ViewPage__image'} src={article.image} alt="thumnail" />
+                <h1 className={'ViewPage__title'}>{article?.title}</h1>
+                <img
+                    className={'ViewPage__image'}
+                    src={
+                        article?.image +
+                        getParametersForUnsplash({
+                            width: 700,
+                            height: 480,
+                            quality: 80,
+                            format: 'jpg',
+                        })
+                    }
+                    width={700}
+                    height={480}
+                    alt="thumnail"
+                />
                 <div className={'ViewPage__content'}>
                     <ReactMarkdown
                         components={{
@@ -53,14 +68,11 @@ function ViewPage(props: any) {
                                 );
                             },
                         }}
-                    >
-                        {article.content}
-                    </ReactMarkdown>
+                        children={article?.content || ''}
+                    />
                 </div>
             </div>
         </BasicTemplates>
-    ) : (
-        <h1>loading...</h1>
     );
 }
 
